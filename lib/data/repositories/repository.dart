@@ -1,7 +1,8 @@
+import 'package:dartz/dartz.dart';
 import 'package:vioai/data/models/message.dart';
 
-typedef Messages = List<Message>;
+typedef Prompt = String;
 
-abstract class Repository {
-  Future<Message> getBotResposneForMessages(Messages mesages);
+abstract class AppRepository {
+  Future<Either<Exception, Message>> getBotResposneForPrompt(Prompt prompt);
 }

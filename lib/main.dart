@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:vioai/views/screens/home_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:vioai/injection.dart';
+import 'package:vioai/views/screens/home/home_screen.dart';
+import 'package:vioai/views/screens/home/home_screen_viewmodel.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await dotenv.load(fileName: ".env");
-  runApp(const App());
+
+  await configureInjection();
+
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => locator<HomeScreenViewModel>()),
+    ],
+    child: const App(),
+  ));
 }
 
 class App extends StatefulWidget {
@@ -26,7 +36,7 @@ class _AppState extends State<App> {
         brightness: Brightness.light,
         colorSchemeSeed: Colors.blue,
         useMaterial3: true,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.dark,
           ),

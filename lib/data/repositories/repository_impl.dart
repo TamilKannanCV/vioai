@@ -1,21 +1,23 @@
+import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 import 'package:vioai/data/datasources/remote_data_source.dart';
 import 'package:vioai/data/models/message.dart';
 import 'package:vioai/data/repositories/repository.dart';
-import 'package:vioai/logger.dart';
 
-class RepositoryImpl implements Repository {
+@Injectable(as: AppRepository)
+class AppRepositoryImpl implements AppRepository {
   final RemoteDataSource _remoteDataSource;
 
-  RepositoryImpl(this._remoteDataSource);
+  AppRepositoryImpl(this._remoteDataSource);
 
   @override
-  Future<Message> getBotResposneForMessages(Messages messages) async {
-    try {
-      final response = await _remoteDataSource.getBotResponseForMessages(messages);
-      return response;
-    } catch (e) {
-      logger.e(e);
-      rethrow;
-    }
+  Future<Either<Exception, Message>> getBotResposneForPrompt(
+      Prompt prompt) async {
+    final response = await _remoteDataSource.getBotResponseForPrompt(prompt);
+    return response.fold((e) {
+      return Left(e);
+    }, (r) {
+      return Right(r);
+    });
   }
 }
