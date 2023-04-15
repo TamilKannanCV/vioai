@@ -3,13 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:vioai/data/models/message.dart';
-import 'package:vioai/data/repositories/repository.dart';
 import 'package:vioai/injection.dart';
-import 'package:vioai/logger.dart';
-import 'package:vioai/views/screens/home/home_screen_viewmodel.dart';
 import 'package:vioai/views/widgets/chat_message_vm.dart';
 
-class ChatMessageWidget extends StatelessWidget {
+class ChatMessageWidget extends StatefulWidget {
   const ChatMessageWidget({
     super.key,
     required this.userMessage,
@@ -17,12 +14,22 @@ class ChatMessageWidget extends StatelessWidget {
   final Message userMessage;
 
   @override
+  State<ChatMessageWidget> createState() => _ChatMessageWidgetState();
+}
+
+class _ChatMessageWidgetState extends State<ChatMessageWidget>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ChangeNotifierProvider(
       create: (context) => locator<ChatMessageVm>(),
-      child: _ChatMsgWidget(userMessage: userMessage),
+      child: _ChatMsgWidget(userMessage: widget.userMessage),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class _ChatMsgWidget extends StatefulWidget {

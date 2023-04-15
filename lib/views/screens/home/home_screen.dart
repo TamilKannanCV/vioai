@@ -22,9 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController queryPrompt = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
+  late ScrollController listScrollController;
+
   @override
   void initState() {
     homeScreenVm = Provider.of<HomeScreenViewModel>(context, listen: false);
+    listScrollController = ScrollController();
     super.initState();
   }
 
@@ -86,6 +89,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             role: Role.user.name,
                             content: queryPrompt.text.trim()));
                         queryPrompt.clear();
+                        listScrollController.animateTo(
+                          listScrollController.position.maxScrollExtent,
+                          duration: const Duration(seconds: 1),
+                          curve: Curves.fastLinearToSlowEaseIn,
+                        );
                       },
                 icon: ShaderMask(
                   blendMode: BlendMode.srcIn,
@@ -103,6 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: CustomScrollView(
+        controller: listScrollController,
         slivers: [
           const CustomAppBar(),
           Consumer<HomeScreenViewModel>(
@@ -131,7 +140,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               }
               return SliverList(
-                  delegate: SliverChildListDelegate(model.chatWidgets));
+                delegate: SliverChildListDelegate(
+                  model.chatWidgets,
+                ),
+              );
             },
           ),
         ],
