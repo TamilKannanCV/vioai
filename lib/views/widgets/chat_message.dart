@@ -48,7 +48,7 @@ class _ChatMsgWidgetState extends State<_ChatMsgWidget> {
   void initState() {
     super.initState();
     vm = Provider.of<ChatMessageVm>(context, listen: false);
-    vm.getResponseForQuery("${widget.userMessage.content}");
+    vm.getResponseForQuery(widget.userMessage.content);
   }
 
   @override
@@ -70,7 +70,7 @@ class _ChatMsgWidgetState extends State<_ChatMsgWidget> {
               const SizedBox(width: 13.0),
               Expanded(
                 child: Text(
-                  "${widget.userMessage.content}",
+                  widget.userMessage.content,
                   style: GoogleFonts.roboto(fontWeight: FontWeight.w600),
                 ),
               ),

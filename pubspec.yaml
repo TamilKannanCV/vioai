@@ -25,6 +25,7 @@ dependencies:
   provider: ^6.0.5
   json_serializable: ^6.6.1
   json_annotation: ^4.8.0
+  retrofit: ^4.0.1
 
 dev_dependencies:
   flutter_test:
@@ -35,6 +36,7 @@ dev_dependencies:
   flutter_gen_runner: ^5.2.0
   injectable_generator: ^2.1.5
   mockito: ^5.4.0
+  retrofit_generator: ^6.0.0+1
 
 flutter_gen:
   integrations:
