@@ -13,9 +13,9 @@ import 'package:vioai/logger.dart';
 
 @Injectable(as: RemoteDataSource)
 class OpenAIDataSource implements RemoteDataSource {
-  final RestClient restClient;
+  final RestClient _restClient;
 
-  OpenAIDataSource(this.restClient);
+  OpenAIDataSource(this._restClient);
 
   @override
   Future<Either<Exception, Message>> getBotResponseForPrompt(
@@ -25,7 +25,8 @@ class OpenAIDataSource implements RemoteDataSource {
       maxTokens: 256,
     );
     try {
-      final completionResponse = await restClient.getCompletionReponse(request);
+      final completionResponse =
+          await _restClient.getCompletionReponse(request);
       final message = completionResponse.choices?.first.message;
       if (message == null) {
         return Left(EmptyMessageException());
