@@ -5,7 +5,7 @@ import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:vioai/data/openAI/models/enums/role.dart';
 import 'package:vioai/data/openAI/models/message.dart';
 import 'package:vioai/gen/assets.gen.dart';
-import 'package:vioai/views/home/home_screen_viewmodel.dart';
+import 'package:vioai/views/home/home_screen_vm.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
@@ -133,16 +133,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(
-                          Icons.lock_outline,
-                          size: 50.0,
-                        ),
-                        const SizedBox(height: 8.0),
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.80,
                           child: const Text(
                             "Create account with Google to start using VioAI.",
                             textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 10.0),

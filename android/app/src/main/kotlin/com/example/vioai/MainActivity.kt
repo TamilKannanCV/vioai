@@ -1,4 +1,4 @@
-package com.vioai.app
+package com.example.vioai
 
 import io.flutter.embedding.android.FlutterActivity
 

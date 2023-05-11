@@ -27,7 +27,7 @@ import 'package:vioai/data/openAI/repository/repository_impl.dart' as _i12;
 import 'package:vioai/data/openAI/service/openai_service.dart' as _i10;
 import 'package:vioai/injection/app_module.dart' as _i17;
 import 'package:vioai/router/app_router.dart' as _i3;
-import 'package:vioai/views/home/home_screen_viewmodel.dart' as _i16;
+import 'package:vioai/views/home/home_screen_vm.dart' as _i16;
 import 'package:vioai/views/home/widgets/chat_message_vm.dart' as _i15;
 
 extension GetItInjectableX on _i1.GetIt {

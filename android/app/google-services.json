@@ -7,49 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:905160867992:android:a8a275f97c922980c8d0ed",
-        "android_client_info": {
-          "package_name": "com.example.vioai"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "905160867992-jvp6h6tl5eegmo8s8g5t1goh7aed8v7u.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.vioai",
-            "certificate_hash": "227847aaa25d499c3ba6abd1064fa382aab6bcc7"
-          }
-        },
-        {
-          "client_id": "905160867992-v38hu0qtl8vvv1g8hvkdb3hu7ohejtu5.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAxUtRYxLcCOP427HdGufJXerBqVYfQ2r4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "905160867992-qfbk038f8la4tihdmvu2tiqbqi7v9ct9.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:905160867992:android:91603b6570610a05c8d0ed",
         "android_client_info": {
           "package_name": "com.vioai.app"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "905160867992-gtp266i2295841ug00i4j5p9qtlfd8bu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vioai.app",
+            "certificate_hash": "227847aaa25d499c3ba6abd1064fa382aab6bcc7"
+          }
+        },
         {
           "client_id": "905160867992-v38hu0qtl8vvv1g8hvkdb3hu7ohejtu5.apps.googleusercontent.com",
           "client_type": 3

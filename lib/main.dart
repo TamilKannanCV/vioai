@@ -7,7 +7,7 @@ import 'package:vioai/firebase_options.dart';
 import 'package:vioai/injection/app_module.dart';
 import 'package:vioai/injection/injection.dart';
 import 'package:vioai/router/app_router.dart';
-import 'package:vioai/views/home/home_screen_viewmodel.dart';
+import 'package:vioai/views/home/home_screen_vm.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
