@@ -1,16 +1,14 @@
 # vioai
 
-A new Flutter project.
+## Contributing
 
-## Getting Started
+If you have read up till here, then 🎉🎉🎉. There are couple of ways in which you can contribute to
+the growing community of `vioai`.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Pick up any issue marked with ["good first issue"](https://github.com/TamilKannanCV-personal/vioai/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+- Propose any feature, enhancement
+- Report a bug
+- Fix a bug
+- Write and improve some **documentation**. Documentation is super critical and its importance
+  cannot be overstated!
+- Send in a Pull Request 😊
