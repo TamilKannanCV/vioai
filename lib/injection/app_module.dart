@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:vioai/data/openAI/client/rest_client.dart';
@@ -25,7 +26,7 @@ abstract class AppModule {
   @injectable
   AppRouter get appRouter => AppRouter();
 
-  @injectable
+  @lazySingleton
   ScaffoldMessengerKey get scaffoldMessengerState => ScaffoldMessengerKey();
 
   @injectable
@@ -33,4 +34,7 @@ abstract class AppModule {
 
   @injectable
   GoogleSignIn get googleSignIn => GoogleSignIn();
+
+  @injectable
+  FlutterTts get flutterTts => FlutterTts();
 }

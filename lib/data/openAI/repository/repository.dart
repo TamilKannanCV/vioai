@@ -3,6 +3,6 @@ import 'package:vioai/data/openAI/models/message.dart';
 
 typedef Prompt = String;
 
-abstract class AppRepository {
+abstract interface class AppRepository {
   Future<Either<dynamic, Message>> getBotResposneForPrompt(Prompt prompt);
 }

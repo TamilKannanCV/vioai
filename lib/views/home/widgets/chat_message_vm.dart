@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:injectable/injectable.dart';
+import 'package:vioai/data/authentication/repository/authentication_repo.dart';
 import 'package:vioai/data/openAI/models/message.dart';
 import 'package:vioai/data/openAI/repository/repository.dart';
 import 'package:vioai/injection/app_module.dart';
 
 @injectable
 class ChatMessageVm extends ChangeNotifier {
-  final AppRepository appRepository;
+  final FlutterTts _flutterTts;
+  final AppRepository _appRepository;
   final ScaffoldMessengerKey _scaffoldMessengerKey;
+  final AuthenticationRepo _authenticationRepo;
 
-  ChatMessageVm(this.appRepository, this._scaffoldMessengerKey);
+  ChatMessageVm(this._appRepository, this._scaffoldMessengerKey,
+      this._flutterTts, this._authenticationRepo) {
+    _flutterTts.setCompletionHandler(() {
+      isSpeaking = false;
+    });
+  }
 
   bool _loading = false;
   bool get loading => _loading;
@@ -33,19 +42,37 @@ class ChatMessageVm extends ChangeNotifier {
     notifyListeners();
   }
 
+  String? get getProfileImageUrl => _authenticationRepo.currentUser?.photoURL;
+
   Future<void> getResponseForQuery(Prompt prompt) async {
     _hasError = false;
     _botMsg = null;
     _loading = true;
 
-    final response = await appRepository.getBotResposneForPrompt(prompt);
+    final response = await _appRepository.getBotResposneForPrompt(prompt);
     response.fold((e) {
       hasError = true;
       loading = false;
     }, (value) {
       loading = false;
       botMsg = value;
+      speak(value.content);
     });
+  }
+
+  bool _isSpeaking = false;
+  bool get isSpeaking => _isSpeaking;
+  set isSpeaking(bool value) {
+    _isSpeaking = value;
+    notifyListeners();
+  }
+
+  Future<void> stop() async {
+    isSpeaking = await _flutterTts.stop() != 1;
+  }
+
+  Future<void> speak(String message) async {
+    isSpeaking = await _flutterTts.speak(message) == 1;
   }
 
   Future<void> copyToClipboard(String text) async {

@@ -25,4 +25,7 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
       return Left(e);
     }
   }
+
+  @override
+  User? get currentUser => _service.currentUser;
 }

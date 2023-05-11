@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:injectable/injectable.dart';
 import 'package:vioai/data/authentication/repository/authentication_repo.dart';
 import 'package:vioai/data/openAI/models/message.dart';
@@ -11,14 +12,14 @@ typedef Messages = List<Message>;
 
 @injectable
 class HomeScreenViewModel extends ChangeNotifier {
-  final AppRepository _appRepository;
   final ScaffoldMessengerKey _scaffoldMessengerKey;
   final AuthenticationRepo _authenticationRepo;
+  final FlutterTts _flutterTts;
 
   HomeScreenViewModel(
-    this._appRepository,
     this._authenticationRepo,
     this._scaffoldMessengerKey,
+    this._flutterTts,
   );
 
   ChatMessageWidgets _chatWidgets = <ChatMessageWidget>[];
@@ -50,6 +51,7 @@ class HomeScreenViewModel extends ChangeNotifier {
   }
 
   void sendMessage(Message message) {
+    removeKeyboardFocus();
     messages = [...messages, message];
     chatWidgets = [...chatWidgets, ChatMessageWidget(userMessage: message)];
   }
@@ -84,5 +86,13 @@ class HomeScreenViewModel extends ChangeNotifier {
     _authenticationRepo.watchUserAuthChanges().listen((e) {
       isLoggedIn = e;
     });
+  }
+
+  void removeKeyboardFocus() {
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
+
+  Future<void> stopSpeaking() async {
+    await _flutterTts.stop();
   }
 }

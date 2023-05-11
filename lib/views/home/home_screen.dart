@@ -15,7 +15,15 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.inactive) {
+      homeScreenVm.stopSpeaking();
+    }
+  }
+
   bool lock = false;
 
   late HomeScreenViewModel homeScreenVm;
@@ -26,8 +34,15 @@ class _HomeScreenState extends State<HomeScreen> {
   late ScrollController listScrollController;
 
   @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     homeScreenVm = Provider.of<HomeScreenViewModel>(context, listen: false);
     homeScreenVm.watchUserAuthStatus();
     listScrollController = ScrollController();
@@ -123,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: CustomScrollView(
         controller: listScrollController,
         slivers: [
-          const CustomAppBar(),
+          const SliverSafeArea(sliver: CustomAppBar()),
           Consumer<HomeScreenViewModel>(
             builder: (context, model, child) {
               if (!model.isLoggedIn) {
@@ -162,12 +177,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               }
               if (model.messages.isEmpty) {
-                return SliverFillRemaining(
+                return const SliverFillRemaining(
                   hasScrollBody: false,
                   child: Center(
                       child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       Icon(
                         Icons.bubble_chart_outlined,
                         size: 45.0,

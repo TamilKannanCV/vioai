@@ -21,7 +21,8 @@ class _RestClient implements RestClient {
   String? baseUrl;
 
   @override
-  Future<CompletionResponse> getCompletionReponse(request) async {
+  Future<CompletionResponse> getCompletionReponse(
+      CompletionRequest request) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};

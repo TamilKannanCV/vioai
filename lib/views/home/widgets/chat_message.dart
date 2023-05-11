@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:vioai/data/openAI/models/message.dart';
+import 'package:vioai/gen/assets.gen.dart';
 import 'package:vioai/injection/injection.dart';
 import 'package:vioai/views/home/widgets/chat_message_vm.dart';
 
@@ -61,10 +62,11 @@ class _ChatMsgWidgetState extends State<_ChatMsgWidget> {
           child: Row(
             children: [
               const SizedBox(width: 5.0),
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 12.0,
-                foregroundImage: NetworkImage(
-                    "https://lh3.googleusercontent.com/ogw/AOLn63GuQXtLaZeMfo3ZIJiDlqdGFFq1uzlC0jJrjPm7gQ=s64-c-mo"),
+                foregroundImage: vm.getProfileImageUrl != null
+                    ? NetworkImage("${vm.getProfileImageUrl}")
+                    : Assets.images.logo.provider(),
               ),
               const SizedBox(width: 13.0),
               Expanded(
@@ -154,10 +156,19 @@ class _ChatMsgWidgetState extends State<_ChatMsgWidget> {
                               vm.copyToClipboard("${model.botMsg?.content}"),
                         ),
                         const SizedBox(width: 10.0),
-                        ActionChip(
-                          label: const Text("Speak"),
-                          avatar: const Icon(Icons.volume_up_rounded),
-                          onPressed: () {},
+                        Visibility(
+                          visible: model.isSpeaking == false,
+                          replacement: ActionChip(
+                            label: const Text("Stop"),
+                            avatar: const Icon(Icons.stop),
+                            onPressed: () => model.stop(),
+                          ),
+                          child: ActionChip(
+                            label: const Text("Speak"),
+                            avatar: const Icon(Icons.volume_up_rounded),
+                            onPressed: () =>
+                                model.speak("${model.botMsg?.content}"),
+                          ),
                         ),
                       ],
                     ),
