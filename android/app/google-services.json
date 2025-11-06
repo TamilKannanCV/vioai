@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "905160867992",
     "project_id": "vioai-app",
-    "storage_bucket": "vioai-app.appspot.com"
+    "storage_bucket": "vioai-app.firebasestorage.app"
   },
   "client": [
     {
@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "905160867992-gtp266i2295841ug00i4j5p9qtlfd8bu.apps.googleusercontent.com",
+          "client_id": "905160867992-btsv13ae74di436hkje417gjd688u13n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.vioai.app",
-            "certificate_hash": "227847aaa25d499c3ba6abd1064fa382aab6bcc7"
+            "certificate_hash": "9e3fc554b5ce2ec282d7644e872f279310289435"
           }
         },
         {

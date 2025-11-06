@@ -14,8 +14,7 @@ class ChatMessageVm extends ChangeNotifier {
   final ScaffoldMessengerKey _scaffoldMessengerKey;
   final AuthenticationRepo _authenticationRepo;
 
-  ChatMessageVm(this._appRepository, this._scaffoldMessengerKey,
-      this._flutterTts, this._authenticationRepo) {
+  ChatMessageVm(this._appRepository, this._scaffoldMessengerKey, this._flutterTts, this._authenticationRepo) {
     _flutterTts.setCompletionHandler(() {
       isSpeaking = false;
     });
@@ -42,16 +41,25 @@ class ChatMessageVm extends ChangeNotifier {
     notifyListeners();
   }
 
+  String? _errorMessage;
+  String? get errorMessage => _errorMessage;
+  set errorMessage(String? value) {
+    _errorMessage = value;
+    notifyListeners();
+  }
+
   String? get getProfileImageUrl => _authenticationRepo.currentUser?.photoURL;
 
   Future<void> getResponseForQuery(Prompt prompt) async {
     _hasError = false;
+    _errorMessage = null;
     _botMsg = null;
     _loading = true;
 
     final response = await _appRepository.getBotResposneForPrompt(prompt);
-    response.fold((e) {
+    response.fold((errorMsg) {
       hasError = true;
+      errorMessage = errorMsg;
       loading = false;
     }, (value) {
       loading = false;
@@ -77,7 +85,6 @@ class ChatMessageVm extends ChangeNotifier {
 
   Future<void> copyToClipboard(String text) async {
     await Clipboard.setData(ClipboardData(text: text));
-    _scaffoldMessengerKey.currentState
-        ?.showSnackBar(const SnackBar(content: Text("Copied!")));
+    _scaffoldMessengerKey.currentState?.showSnackBar(const SnackBar(content: Text("Copied!")));
   }
 }
